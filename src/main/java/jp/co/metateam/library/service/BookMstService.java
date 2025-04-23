@@ -25,7 +25,7 @@ public class BookMstService {
         this.bookMstRepository = bookMstRepository;
     }
     
-    public List<BookMstDto> findAvailableWithStockCount() {
+    public List<BookMstDto> findAvailableWithStockCount(){
         List<BookMst> books = this.bookMstRepository.findLimitedBook();
         List<BookMstDto> bookMstDtoList = new ArrayList<BookMstDto>();
 
@@ -42,8 +42,32 @@ public class BookMstService {
 
         return bookMstDtoList;
     }
-    
-}
 
+    public String searchIsbn(String id) {
+        Optional<BookMst> bookMstOptional = bookMstRepository.selectByisbn(Long.parseLong(id));
+        if (bookMstOptional.isPresent()) {
+            return bookMstOptional.get().getIsbn();
+        } else {
+            return null;
+        }
+    }
+
+        @Transactional
+        public void save(BookMstDto bookMstDto) {
+        try {
+            // AccountDtoからAccountへの変換
+            BookMst bookMst = new BookMst();
+ 
+            bookMst.setTitle(bookMstDto.getTitle());
+            bookMst.setIsbn(bookMstDto.getIsbn());
+ 
+            // データベースへの保存
+            this.bookMstRepository.save(bookMst);
+            } catch (Exception e) {
+          throw e;
+        }
+    
+    }
+}
 
 
