@@ -4,16 +4,52 @@
     <title th:text="${title}+' | MTLibrary'"></title>
     <link rel="stylesheet" th:href="@{/css/book/index.css}" />
     <script type="text/javascript" th:src="@{/js/book/index.js}"></script>
+    
 </head>
 <body>
     <div class="contents">
-        <div th:replace="~{common :: main_sidebar}"></div>
-        <div class="main_contents">
-            <div th:replace="~{common :: header}"></div>
-            <div class="inner_contens">
-                <div class="page_title">書籍一覧</div>
+      <div th:replace="~{common :: main_sidebar}"></div>
+      <div class="main_contents">
+        <div th:replace="~{common :: header}"></div>
+  
+        <div class="inner_contens">
+          <div class="page_title">書籍一覧</div>
+  
+          <div class="page_contents">
+            
+            <div style="text-align: right; margin-bottom: 16px;">
+            
+              <a th:href="@{/book/add}"
+                 style="
+                   display: inline-block;
+                   padding: 8px 16px;
+                   background-color: #05a52069;
+                   color: #302f2f;
+                   text-decoration: none;
+                   border-radius: 4px;
+                 ">
+                書籍登録
+              </a>
             </div>
+  
+          
+            <table class="book-table" border="1" cellpadding="4" cellspacing="0" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th>書籍名</th>
+                  <th>ISBN</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="book : ${bookMstList}">
+                  <td th:text="${book.title}">タイトル</td>
+                  <td th:text="${book.isbn}">ISBN</td>
+                </tr>
+              </tbody>
+            </table>
         </div>
     </div>
     <div th:replace="~{common :: footer}"></div>
 </body>
+
+

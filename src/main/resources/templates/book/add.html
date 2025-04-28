@@ -23,18 +23,20 @@
                         </div>
                         
                         <p>書籍名：<br>
-                            <input type="text" name="title" th:field="*{title}" />
+                            <input type="text" th:field="*{title}" required />
                                 </p>
                                 <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red;"></div>
                         <p>ISBN：<br>
-                            <input type="text" name="isbn" th:field="*{isbn}" />
+                            <input type="text" th:field="*{isbn}" required />
                      <div th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" style="color: red;"></div>
 
+                     <input type="hidden" name="updatedAt"
+                              value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
                      <span> 
                         <a th:href="@{/book/index}" class="link">← 一覧へ戻る</a>        
                     </span>
 
-                     <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
+                     <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
                         <button type="submit" class="btn btn-primary">保存</button>
                 </div>
             </form>
